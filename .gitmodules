@@ -1,0 +1,3 @@
+[submodule "store_api"]
+	path = store_api
+	url = git@github.com:vurokrazia/store_api.git
