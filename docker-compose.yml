@@ -1,0 +1,26 @@
+version: "3"
+volumes: 
+  postgresql_store_api:
+  bundle_path_store_api:
+services:
+  db_store:
+    restart: on-failure:3
+    image: postgres:13.2
+    volumes: 
+      - postgresql_store_api:/var/lib/postgresql/data
+    ports: 
+      - 5432:5432
+    env_file: 
+      - enviroments/.env.postgresql
+  store_api:
+    restart: on-failure:3
+    build:
+     context: ./store_api
+     dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes: 
+     - ./store_api/:/home/developer/app
+     - bundle_path_store_api:/usr/local/bundle
+    env_file: 
+      - enviroments/.env.store_api
